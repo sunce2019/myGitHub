@@ -1,0 +1,86 @@
+
+.nav_menu .link {
+    cursor: pointer;
+    display: block;
+    color: #8e8e8e;
+    font-size: 14px;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.nav_menu li:last-child .link {
+    border-bottom: 0;
+}
+.nav_menu li{
+    cursor: pointer;
+}
+.nav_menu li i.fa {
+    position: absolute;
+    top: 13px;
+    right: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.nav_menu li i.fa-chevron-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.nav_menu li.open .link {
+    color: #fff;
+}
+.nav_menu li.open{
+ border-left: 4px solid #42b8f1;
+    background: #181818;
+}
+.nav_menu li.open i {
+    color: #8e8e8e;
+	top:23px;
+}
+
+.nav_menu li.open i.fa-chevron-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/**
+ * Submenu#303235
+ -----------------------------*/
+.submenu {
+    display: none;
+    font-size: 14px;
+    margin-left: 30px;
+    color: #fff;
+}
+.submenu dl{
+	margin-bottom: 0!important;
+}
+
+.submenu dd {
+	margin:0;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #8e8e8e;
+    padding: 12px;
+    padding-left: 42px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+	padding: 12px 15px 12px 0px!important;
+}
+
+.submenu a:hover ,.submenu dd.current a{  
+    color: #FFF!important;
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        ">
+	<!-- 扫描controller（controller层注入） -->
+   <context:component-scan base-package="com.pay"/>
+   <mvc:annotation-driven ><!--自动注解 -->
+    <mvc:message-converters register-defaults="true">
+	      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	        <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+	      </bean>
+    </mvc:message-converters>
+   </mvc:annotation-driven>
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="defaultEncoding" value="UTF-8" />
+	<property name="maxUploadSize" value="1048576" />
+	</bean>
+   <mvc:default-servlet-handler/>
+   
+   <context:annotation-config/>
+        <mvc:interceptors>  
+            <!-- 多个拦截器，顺序执行 -->  
+                <bean class="com.pay.interceptor.RequestInterceptor"></bean>  
+        </mvc:interceptors>
+        <!-- 避免IE在ajax请求时，返回json出现下载 -->
+   <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">		
+		<property name="supportedMediaTypes">
+            <list>
+                <bean class="org.springframework.http.MediaType">
+                    <constructor-arg index="0" value="application"/>
+                    <constructor-arg index="1" value="json"/>
+                    <constructor-arg index="2" value="UTF-8"/>
+                </bean>
+            </list>
+        </property>
+	</bean>
+	
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">  
+     <property name="defaultCharset" value="UTF-8"/>  
+</bean>
+	
+	 <bean id="mappingStringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>  
+	            <bean class="org.springframework.http.MediaType">  
+	                <constructor-arg value="text" />  
+	                <constructor-arg value="plain" />  
+	                <constructor-arg value="UTF-8" />  
+	            </bean>  
+        	</list>  
+        </property>
+    </bean>
+   
+	<context:component-scan base-package="com.pay" >      
+	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />    
+	</context:component-scan>
+		<task:annotation-driven />
+    <context:component-scan base-package="com.pay.task" />
+   
+   
+   	 <!-- 引入jdbc配置文件 -->
+    <context:property-placeholder location="classpath:conf/jdbc.properties,classpath:conf/redis.properties"/>
+    
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:conf/chinaBo.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
+    <!-- 配置数据源 -->  
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >  
+        <property name="driverClassName" value="${jdbc.mysql.driverClassName}"></property>  
+        <property name="url" value="${jdbc.mysql.url}"></property>  
+        <property name="username" value="${jdbc.mysql.username}"></property>  
+        <property name="password" value="${jdbc.mysql.password}"></property>  
+    </bean>  
+      
+    <!-- 配置SessionFactory -->  
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <property name="hibernateProperties">  
+            <props>  
+                <prop key="hibernate.dialect">${jdbc.mysql.dialect}</prop>  
+                <prop key="hibernate.hbm2ddl.auto">true</prop>  
+                <!--是否显示sql语句 我在这里是显示的  -->  
+                <prop key="hibernate.show_sql">false</prop>  
+                <!--格式化显示sql语句  -->  
+                <prop key="hibernate.format_sql">true</prop>
+            </props>  
+        </property>  
+        <!-- 自动扫描制定位置下的实体进行映射  -->   
+        <property name="packagesToScan" value="com.pay.model"/>  
+    </bean>  
+      
+    <!-- 配置一个事务管理器 -->  
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory"/>  
+    </bean>  
+    
+    <!--aop管理事务-->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.pay.service.*.*(..))" id="daoCut"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="daoCut"/>
+    </aop:config>
+
+    <tx:advice transaction-manager="transactionManager" id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+    
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    
+ 
+	 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">      
+        <property name="messageConverters">      
+            <list >      
+                <ref bean="mappingJacksonHttpMessageConverter" />      
+            </list>    
+        </property> 
+    </bean> 
+	<mvc:resources location="/image/" mapping="/image/**"></mvc:resources>  
+    <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>  
+    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>   
+    <mvc:resources location="/fonts/" mapping="/fonts/**"></mvc:resources> 
+   <!-- 对模型视图添加前后缀 -->
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+      p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+      <import resource="redis-context.xml"/>
+</beans>

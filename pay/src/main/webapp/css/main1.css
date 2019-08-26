@@ -1,0 +1,111 @@
+@charset "utf-8";
+*{margin:0;padding:0}
+body{background:#f3f3f3;font-family:"雅黑";}
+iframe{border:0 none;}
+ul,li{list-style:none;}
+a{text-decoration:none;outline:0 none;}
+.clearfloat{zoom:1}
+.clearfloat:after{content:"";display:block;clear:both;}
+#header{height:80px;background:#1b78a3}
+.header_logo{height:100%;background:url(../images/detail_header_bg.png);background-repeat:no-repeat;}
+#main_contain_wrapper{background:#fff;margin-top:28px;}
+#main_content{/*height:778px;*/;width:1392px;}
+.main_content_left{float:left;width:170px;height:100%;background:#e6e6e6;border-right:1px solid #c4c4c4;font-size:14px;}
+/*content-b*/
+.main_content_left{text-indent:25px;}
+.main_content_left ul{margin:12px 10px;}
+.main_content_left dl{margin-top:25px;}
+.main_content_left dt{font-weight:bold}
+.main_content_left dd{font-size:12px;}
+.main_content_left li{width:149px;padding:6px 0;cursor:pointer}
+.currentNav{color:#fff;background:#1b78a3;}
+
+.main_content_right{float:left;height:100%;background:#fff;padding:22px 29px;}
+/*.main_content_right_contaier{margin:22px 29px;}*/
+.main_content_right_contaier h2{font-family:"雅黑";font-size:22px;color:#636466;border-bottom:1px solid #cccccc;padding-bottom:10px;margin-bottom:30px;}
+
+/*操作条*/
+.toolBar_row1{height:25px;margin-bottom:22px;font-size:14px;color:#666;}
+/*
+.toolBar_row1 select{width:158px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:38px;}
+.toolBar_row1 input[type="text"]{width:158px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:19px;}
+*/
+
+.select-inline1{width:100px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:5px;}
+.input-inline1{text-indent:5px;width:80px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:19px;}
+.select-inline2{width:158px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:38px;}
+.input-inline2{width:158px;height:20px;border:1px solid #abadb3;vertical-align:middle;margin-right:19px;}
+
+.toolBar_row1 a{vertical-align:middle}
+.toolBar_row2{margin-top:42px;margin-bottom:8px;}
+/*查询 删除 新增按钮*/
+.searchBtn{display:inline-block;width:92px;height:25px;background:url(../images/searchBtn_out.png);background-repeat:no-repeat;}
+.searchBtn:hover{background:url(../images/searchBtn_in.png)}
+.delBtn{display:inline-block;width:76px;height:25px;background:url(../images/delBtn_out.png);background-repeat:no-repeat;margin-right:7px;}
+.delBtn:hover{background:url(../images/delBtn_in.png)}
+.addBtn{display:inline-block;width:76px;height:25px;background:url(../images/addBtn_out.png);background-repeat:no-repeat;}
+.addBtn:hover{background:url(../images/addBtn_in.png)}
+/*table*/
+.main_content_right_info{width:1163px;margin-bottom:57px;font-size:14px;color:#666;}
+.main_content_right_info_table{width:795px;height:358px;}
+.main_content_right table,.main_content_right tr,.main_content_right td,.main_content_right th{border:1px solid #c0c0c0;border-collapse:collapse;text-align:center;}
+.main_content_right td a{text-decoration:underline;color:#1b78a3}
+.currentTr{background:#e5f7ff}
+.consoleBtn{vertical-align:middle;display:inline-block;background: url(../images/console_out.png);background-repeat:no-repeat;width:22px;height:23px;}
+.consoleBtn:hover{background: url(../images/console_in.png);background-repeat:no-repeat;}
+.memberBtn{text-decoration:none;}
+
+.table_head{background:#f5f5f5}
+
+
+/*数据源管理，应用系统管理按钮
+.dbConsoleBtn{display:inline-block;width:123px;height:30px;background:url(../images/dbConsoleBtn_out.png);background-repeat:no-repeat;}
+.dbConsoleBtn:hover{background:url(../images/dbConsoleBtn_in.png)}
+.appConsoleBtn{display:inline-block;width:137px;height:30px;background:url(../images/appConsoleBtn_out.png);background-repeat:no-repeat;}
+.appConsoleBtn:hover{background:url(../images/appConsoleBtn_in.png)}
+*/
+
+.bgIconClass{display:inline-block;padding:0 10px 0 30px;height:30px;font-size:14px;line-height:30px;color:#fff;}
+.bgIcon1{background:#5ebce8;background-image:url(../images/bgIcon1.png);background-position:8px center;background-repeat:no-repeat;}
+.bgIcon1:hover{background:#76d0fa;background-image:url(../images/bgIcon1.png);background-position:8px center;background-repeat:no-repeat;}
+.bgIcon2{background:#5ebce8;background-image:url(../images/bgIcon2.png);background-position:8px center;background-repeat:no-repeat;}
+.bgIcon2:hover{background:#76d0fa;background-image:url(../images/bgIcon2.png);background-position:8px center;background-repeat:no-repeat;}
+
+/*url(../images/batchChangePTbg_out.png)*/
+/*日志监控*/
+.left_log{width:679px;height:610px;background:#f0f0f0;float:left;margin-right:20px;}
+.right_table_list{width:464px;height:610px;float:left;}
+.left_log_title{height:45px;line-height:45px;}
+.left_log_title h4{color:#666;font-size:16px;margin-left:16px;display:inline-block;float:left;}
+.left_log_title a{color:#1b78a3;font-size:12px;margin-right:23px;float:right;}
+.left_log_content{width:661px;height:555px;background:#fff;margin:0 9px 9px 9px;overflow:hidden;border:1px solid #cbcbcb}
+/*信息列表*/
+.right_table_list div{width:100%;}
+.dbSource_list{margin-bottom:26px;height:181px;}
+.logCount_list{margin-bottom:31px;height:181px;}
+.right_table_list_title{margin-bottom:4px;}
+.right_table_list_title h4{color:#666;font-size:16px;display:inline-block;float:left;}
+.right_table_list_title a{color:#1b78a3;font-size:12px;float:right;}
+.dbSourceTb{width:100%;height:154px;}
+
+/*分页*/
+.page{height:27px;/*width:450px;*/font-size:12px;text-align:center;line-height:27px;margin-bottom:50px;}
+.page ul{margin-left:200px;text-align:center;}
+.pageLi{float:left;border:1px solid #abadb3;margin-right:6px;}
+.dot{float:left;}
+.pageA{color:#333;display:inline-block;}
+.pageA:hover{background:#134e69;color:#c5d8df}
+.currentPage{background:#134e69;color:#c5d8df}
+.num_page{padding:0 8px;}
+.next_page{padding:0 13px;}
+.pev_page{padding:0 13px;}
+
+#iframeDiv{width:853px;height:705px;}
+
+.dialog_div{display:none;font-size:14px;}
+.dialog_div label{display:inline-block;width:100px;text-align:right;}
+.dialog_div_widget_margin{margin:15px 0;}
+.dialog_div select{width:155px;}
+/*content-fin*/
+
+#footer{height:61px;color:#666;font-size:12px;padding-top:22px;padding-left:28px;}

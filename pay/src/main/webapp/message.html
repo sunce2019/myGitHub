@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://pay.fcyl.co/UserTransfer/?u= -->
+<html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>User Agent</title>
+<script type="text/javascript" src="../js/jquery.min.js"></script>    
+</head>
+<body>
+<div id="msg"></div>
+<script type="text/javascript">
+	$(function(){$("#msg").html(GetUrlParam("msg"));});
+	function GetUrlParam(name){
+	  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	  var r = encodeURI(window.location.search).substr(1).match(reg);
+	  if(r!=null)return decodeURI(unescape(r[2])); return null;
+	}
+</script>   
+</body>
+</html>
+
